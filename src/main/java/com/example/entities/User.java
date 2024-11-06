@@ -56,11 +56,10 @@ public class User {
     // Override toString method for easy representation
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                '}';
+        return 
+                "name=" + name + 
+                ", age=" + age + 
+                ", gender=" + gender;
     }
 
     
