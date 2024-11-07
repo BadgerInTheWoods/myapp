@@ -1,17 +1,20 @@
 package com.example.entities;
 
+import java.time.LocalDate;
+import java.time.Period;
 
 public class User {
+
     private int id;
     private String name;
-    private String age;
+    private LocalDate dateofbirth;
     private String gender;
 
     // Constructor
-    public User(int id, String name, String age, String gender) {
+    public User(int id, String name, LocalDate dateofbirth, String gender) {
         this.id = id;
         this.name = name;
-        this.age = age;
+        this.dateofbirth = dateofbirth;
         this.gender = gender;
     }
 
@@ -33,14 +36,14 @@ public class User {
         this.name = name;
     }
 
-    // Getter for age
-    public String getAge() {
-        return age;
+    // Getter for dateofbirth
+    public LocalDate getDateOfBirth() {
+        return dateofbirth;
     }
 
-    // Setter for age
-    public void setAge(String age) {
-        this.age = age;
+    // Setter for dateofbirth
+    public void setDateOfBirth(LocalDate dateofbirth) {
+        this.dateofbirth = dateofbirth;
     }
 
     // Getter for gender
@@ -53,14 +56,20 @@ public class User {
         this.gender = gender;
     }
 
+    public int calculateAge() {
+        LocalDate currentDate = LocalDate.now();
+        Period period = Period.between(dateofbirth, currentDate);
+        return period.getYears();
+    }
+
     // Override toString method for easy representation
     @Override
     public String toString() {
-        return 
-                "name=" + name + 
-                ", age=" + age + 
-                ", gender=" + gender;
+        return "id=" + id
+                + ", name=" + name
+                + ", date of birth=" + dateofbirth
+                + ", age=" + calculateAge()
+                + ", gender=" + gender;
     }
 
-    
 }

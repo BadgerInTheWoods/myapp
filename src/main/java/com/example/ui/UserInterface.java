@@ -1,5 +1,8 @@
 package com.example.ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import com.example.entities.User;
@@ -70,15 +73,18 @@ public class UserInterface {
     }
 
     private void addUser() {
-        System.out.print("Enter name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter age: ");
-        String age = scanner.nextLine();
-        System.out.print("Enter gender: ");
-        String gender = scanner.nextLine();
+        System.out.print("enter how many users you want to add in one go: ");
+        int count = Integer.parseInt(scanner.nextLine());
+        for (int i = 0; i < count; i++) {
+            System.out.print("Enter name: ");
+            String name = scanner.nextLine();
+            LocalDate dateofbirth = insertDate();
+            System.out.print("Enter gender(m/f): ");
+            String gender = scanner.nextLine();
 
-        UserService.createNewUser(name, age, gender);
-        System.out.println("User added successfully!");
+            UserService.createNewUser(name, dateofbirth, gender);
+        }
+        System.out.println("Users added successfully!");
     }
 
     private void listAllUsers() {
@@ -96,13 +102,13 @@ public class UserInterface {
         if (User != null) {
             System.out.print("Enter new name (current: " + User.getName() + "): ");
             String name = scanner.nextLine();
-            System.out.print("Enter new age (current: " + User.getAge() + "): ");
-            String age = scanner.nextLine();
-            System.out.print("Enter new gender (current: " + User.getGender() + "): ");
+            System.out.print("(current: " + User.getDateOfBirth() + "): ");
+            LocalDate dateofbirth = insertDate();
+            System.out.print("Enter new gender(m/f) (current: " + User.getGender() + "): ");
             String gender = scanner.nextLine();
 
             User.setName(name);
-            User.setAge(age);
+            User.setDateOfBirth(dateofbirth);
             User.setGender(gender);
             UserService.updateUser(User);
             System.out.println("User updated successfully!");
@@ -116,5 +122,31 @@ public class UserInterface {
         int id = Integer.parseInt(scanner.nextLine());
         UserService.deleteUser(id);
         System.out.println("User deleted successfully!");
+    }
+
+    private static LocalDate parseDate(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        try {
+            return LocalDate.parse(dateString, formatter);  // Попытка парсинга строки в LocalDate
+        } catch (DateTimeParseException e) {
+            return null;  // Возвращаем null, если формат неправильный
+        }
+
+    }
+
+    private LocalDate insertDate() {
+        LocalDate dateofbirth = null;
+        while (dateofbirth == null) {
+            System.out.println("Enter the user's date of birth (yyyy-MM-dd): ");
+            String dateofbirthString = scanner.nextLine();
+
+            // Проверка формата и корректности даты
+            dateofbirth = parseDate(dateofbirthString);
+            if (dateofbirth == null) {
+                System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+            }
+        }
+        return dateofbirth;
     }
 }

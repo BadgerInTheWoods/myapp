@@ -1,5 +1,6 @@
 package com.example.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.dao.UserDAO;
@@ -17,8 +18,8 @@ public class UserService {
         return UserDAO.getUser(id);
     }
 
-    public void createNewUser(String name, String age, String gender) {
-        User User = new User(0, name, age, gender); // id = 0 (значение неважно, т.к. автоинкремент в БД)
+    public void createNewUser(String name, LocalDate dateofbirth, String gender) {
+        User User = new User(0, name, dateofbirth, gender); // id = 0 (значение неважно, автоинкремент в БД)
         UserDAO.addUser(User);
     }
 

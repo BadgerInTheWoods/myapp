@@ -1,0 +1,7 @@
+com\example\entities\User.class
+com\example\services\UserService.class
+com\example\ui\UserInterface.class
+com\example\App.class
+com\example\config\DatabaseConfig.class
+com\example\dao\UserDAO.class
+com\example\interfaces\DAOinterface.class

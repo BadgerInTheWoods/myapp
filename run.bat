@@ -1,0 +1,1 @@
+java -cp "target\myapp-1.0-SNAPSHOT.jar;C:\Users\Alex.DESKTOP-QVO9G74\.m2\repository\org\postgresql\postgresql\42.7.4\postgresql-42.7.4.jar" com.example.App pause
